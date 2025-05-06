@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to AI Career Assistant</h1>
+    <p>Discover job opportunities and generate tailored resumes.</p>
+    <button onclick="matchJobs()">Find Jobs</button>
+    <button onclick="generateResume()">Generate Resume</button>
+</div>
+
+<script>
+function matchJobs() {
+    fetch('/api/match-jobs/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: 'user123' })
+    })
+    .then(response => response.json())
+    .then(data => alert(JSON.stringify(data.matches)));
+}
+
+function generateResume() {
+    fetch('/api/generate-resume/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: 'user123', job_id: 1 })
+    })
+    .then(response => response.json())
+    .then(data => alert(data.resume));
+}
+</script>
+{% endblock %}
